@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f9f9f9; padding: 20px; }
+        h1, h2 { color: #333; }
+        #userInfo { background: #eee; padding: 10px; border-radius: 5px; }
+        button { padding: 5px 10px; background-color: #007bff; color: white; border: none; cursor: pointer; margin-left: 10px; }
+        #logoutBtn { background-color: #dc3545; }
+        .container { display: flex; gap: 30px; }
+        .panel { flex: 1; background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #f4f4f4; border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+    <div id="userInfo">
+        Loading... <button id="logoutBtn">Logout</button>
+    </div>
+    
+    <h1>Dashboard EduConnect</h1>
+    <div id="message" style="color: green; font-weight: bold;"></div>
+
+    <div class="container">
+        <div class="panel">
+            <h2>Semua Kursus</h2>
+            <ul id="courseList"></ul>
+        </div>
+        <div class="panel">
+            <h2>Kursus Saya</h2>
+            <ul id="myEnrollmentList"></ul>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Kursus</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f9f9f9; padding: 20px; }
+        h1, h2, h3 { color: #333; }
+        #userInfo { background: #eee; padding: 10px; border-radius: 5px; }
+        button { padding: 5px 10px; background-color: #007bff; color: white; border: none; cursor: pointer; margin-left: 10px; }
+        #logoutBtn { background-color: #dc3545; }
+        #backBtn { background-color: #6c757d; }
+        .lesson-item { background: #f4f4f4; border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .lesson-item.completed { background: #d4edda; border-color: #c3e6cb; }
+        .lesson-item.completed button { background-color: #28a745; cursor: not-allowed; }
+        #course-info { background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        #module-list { background: #fff; border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
+        .module-block { margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="userInfo">Loading...</div>
+    
+    <a href="dashboard.html" id="backBtn" style="text-decoration: none; color: white; padding: 5px 10px; border-radius: 4px; margin-top: 10px; display: inline-block;">&larr; Kembali ke Dashboard</a>
+
+    <div id="course-info">
+        <h1 id="course-title">Memuat...</h1>
+        <p id="course-desc"></p>
+    </div>
+
+    <div id="module-list">
+        <h2>Materi Kursus</h2>
+        <div id="modules-container">Memuat materi...</div>
+    </div>
+
+<script>
+// URL API Gateway Anda
+const API_URL = 'http://localhost:3000/api';
+
+// Ambil token dan user dari localStorage
+const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
+
+// --- 1. Verifikasi Login & Ambil ID Kursus dari URL ---
+const urlParams = new URLSearchParams(window.location.search);
+const courseId = urlParams.get('id');
+
+if (!token || !user) {
+    window.location.href = 'login.html';
+} else if (!courseId) {
+    alert('ID Kursus tidak ditemukan!');
+    window.location.href = 'dashboard.html';
+} else {
+    // Tampilkan info user
+    const userInfoEl = document.getElementById('userInfo');
+    userInfoEl.innerHTML = `Login sebagai: <strong>${user.email}</strong> (Role: ${user.role}) <button id="logoutBtn">Logout</button>`;
+    
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+    });
+}
+
+// --- 2. Fungsi Helper untuk Fetch API (dengan Token) ---
+async function fetchAPI(endpoint, options = {}) {
+    const defaultHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+    const config = { ...options, headers: { ...defaultHeaders, ...options.headers } };
+    const response = await fetch(`${API_URL}${endpoint}`, config);
+
+    if (response.status === 401 || response.status === 403) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'login.html';
+    }
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Terjadi kesalahan API');
+    }
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+        return response.json();
+    } else {
+        return response.text();
+    }
+}
+
+// --- 3. Fungsi Utama untuk Memuat Data ---
+async function loadCourseDetails() {
+    const modulesContainer = document.getElementById('modules-container');
+    try {
+        // Panggil 2 endpoint sekaligus
+        const [courseData, progressData] = await Promise.all([
+            fetchAPI(`/courses/${courseId}`), // Panggil Course Service
+            fetchAPI(`/progress/my-progress/${courseId}`) // Panggil Progress Service
+        ]);
+
+        // Olah data progres
+        const completedLessonIds = new Set(
+            progressData.completed_lessons.map(lesson => lesson.lesson_id)
+        );
+
+        // Tampilkan info kursus
+        document.getElementById('course-title').textContent = courseData.title;
+        document.getElementById('course-desc').textContent = courseData.description;
+
+        // Tampilkan modul dan materi
+        modulesContainer.innerHTML = '';
+        courseData.Modules.forEach(module => {
+            const moduleEl = document.createElement('div');
+            moduleEl.className = 'module-block';
+            moduleEl.innerHTML = `<h3>${module.title}</h3>`;
+            
+            module.Lessons.forEach(lesson => {
+                const isCompleted = completedLessonIds.has(lesson.id);
+                const lessonEl = document.createElement('div');
+                lessonEl.className = `lesson-item ${isCompleted ? 'completed' : ''}`;
+                
+                lessonEl.innerHTML = `
+                    <span>${lesson.title} ${isCompleted ? '✅' : ''}</span>
+                    <button class="complete-btn" 
+                            data-lesson-id="${lesson.id}" 
+                            data-course-id="${courseId}" 
+                            ${isCompleted ? 'disabled' : ''}>
+                        ${isCompleted ? 'Selesai' : 'Tandai Selesai'}
+                    </button>
+                `;
+                moduleEl.appendChild(lessonEl);
+            });
+            modulesContainer.appendChild(moduleEl);
+        });
+
+    } catch (error) {
+        modulesContainer.innerHTML = `<p style="color: red;">Gagal memuat detail kursus: ${error.message}</p>`;
+    }
+}
+
+// --- 4. Fungsi untuk Menyelesaikan Materi ---
+async function markLessonAsComplete(lessonId, courseId, button) {
+    button.textContent = 'Memproses...';
+    button.disabled = true;
+
+    try {
+        // Panggil Progress Service
+        await fetchAPI('/progress/lessons/complete', {
+            method: 'POST',
+            body: JSON.stringify({
+                lesson_id: lessonId,
+                course_id: courseId
+            })
+        });
+
+        // Update UI
+        button.textContent = 'Selesai';
+        button.parentElement.classList.add('completed');
+        button.parentElement.querySelector('span').textContent += ' ✅';
+        
+    } catch (error) {
+        alert(`Gagal menyimpan progres: ${error.message}`);
+        button.textContent = 'Tandai Selesai';
+        button.disabled = false;
+    }
+}
+
+// --- 5. Event Listener untuk Tombol "Selesai" ---
+document.getElementById('modules-container').addEventListener('click', (e) => {
+    if (e.target.classList.contains('complete-btn')) {
+        const lessonId = parseInt(e.target.getAttribute('data-lesson-id'));
+        const courseId = parseInt(e.target.getAttribute('data-course-id'));
+        markLessonAsComplete(lessonId, courseId, e.target);
+    }
+});
+
+// --- 6. Muat data saat halaman dibuka ---
+loadCourseDetails();
+
+</script>
+</body>
+</html>
