@@ -28,12 +28,18 @@
     </div>
 
     <script>
-        // Cek jika sudah login, lempar ke dashboard
         if (localStorage.getItem('token')) {
-            window.location.href = 'dashboard.html';
+            let destination = 'dashboard.html'; // Halaman default (untuk student)
+
+            // Periksa apakah rolenya 'instructor'
+            if (data.user.role === 'instructor') {
+                // Arahkan ke dashboard instruktur
+                destination = 'instructor-dashboard.html';
+            }
+            
+            window.location.href = destination; 
         }
 
-        // Sekarang 'loginForm' pasti ditemukan
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
@@ -41,7 +47,6 @@
             const messageDiv = document.getElementById('message');
 
             try {
-                // Panggil API Gateway (pastikan port 3000)
                 const response = await fetch('http://localhost:3000/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -51,10 +56,27 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Simpan token ke localStorage
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
-                    window.location.href = 'dashboard.html'; // Pindah ke dashboard
+
+                    // ==========================================================
+                    // == [ PERUBAHAN: 'admin' MENJADI 'instructor' ] ==
+                    // ==========================================================
+                    
+                    let destination = 'dashboard.html'; // Halaman default (untuk student)
+
+                    // Periksa apakah rolenya 'instructor'
+                    if (data.user.role === 'instructor') {
+                        // Arahkan ke dashboard instruktur
+                        destination = 'instructor-dashboard.html';
+                    }
+                    
+                    window.location.href = destination; 
+                    
+                    // ==========================================================
+                    // == [ AKHIR PERUBAHAN ] ==
+                    // ==========================================================
+
                 } else {
                     messageDiv.textContent = data.error || 'Login gagal';
                 }

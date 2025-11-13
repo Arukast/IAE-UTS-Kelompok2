@@ -14,7 +14,7 @@
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html">EduConnect</a>
+            <a class="navbar-brand" href="instructor-dashboard.html">EduConnect (Instructor)</a>
             <div class="d-flex text-white" id="userInfo">Loading...</div>
         </div>
     </nav>
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
                 
-                <a href="dashboard.html" class="btn btn-outline-secondary mb-3">&larr; Kembali ke Dashboard</a>
+                <a href="instructor-dashboard.html" class="btn btn-outline-secondary mb-3">&larr; Kembali ke Dashboard</a>
 
                 <div class="panel p-4 p-md-5">
                     <h2 class="mb-4">Buat Kursus Baru</h2>
@@ -129,6 +129,8 @@ function setMessage(message, type = 'danger') {
 }
 
 // --- 4. Logika untuk Submit Form ---
+// (Tidak ada perubahan di sini, karena script sudah benar
+// menggunakan 'user.id' sebagai 'instructor_id')
 const form = document.getElementById('create-course-form');
 const submitButton = document.getElementById('submit-button');
 
@@ -139,9 +141,6 @@ form.addEventListener('submit', async (e) => {
     submitButton.textContent = 'Memproses...';
     setMessage(''); 
 
-    // --- PERUBAHAN PAYLOAD DISINI ---
-
-    // Pastikan user.id ada sebelum mengirim
     if (!user || !user.id) {
         setMessage('Sesi Anda tidak valid atau ID user tidak ditemukan. Silakan login kembali.', 'danger');
         submitButton.disabled = false;
@@ -149,30 +148,22 @@ form.addEventListener('submit', async (e) => {
         return; 
     }
 
-    // Ambil data dari form
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const thumbnailUrl = document.getElementById('thumbnail_url').value;
     const category = document.getElementById('category').value;
 
-    // Susun payload sesuai model
     const payload = {
         title: title,
         description: description,
-        instructor_id: user.id, // WAJIB: Diambil dari user yang login
-        
-        // Kirim 'null' jika string kosong, agar DB bisa memproses 'allowNull: true'
+        instructor_id: user.id, // Ini sudah benar
         category: category ? category : null 
     };
 
-    // Hanya tambahkan thumbnail_url jika diisi.
-    // Jika tidak dikirim (undefined), backend/DB akan menggunakan 'defaultValue'
     if (thumbnailUrl) {
         payload.thumbnail_url = thumbnailUrl;
     }
     
-    // --- AKHIR PERUBAHAN PAYLOAD ---
-
     try {
         const newCourse = await fetchAPI('/courses', {
             method: 'POST',
