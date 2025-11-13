@@ -21,7 +21,16 @@ const Course = sequelize.define('Course', {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   title: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.TEXT },
-  instructor_id: { type: DataTypes.INTEGER, allowNull: false } // ID dari User Service
+  instructor_id: { type: DataTypes.INTEGER, allowNull: false }, // ID dari User Service
+  thumbnail_url: { 
+    type: DataTypes.STRING, 
+    allowNull: true,
+    defaultValue: 'https://via.placeholder.com/300x200.png?text=Kursus'
+  },
+  category: {
+    type: DataTypes.STRING,
+    allowNull: true
+  }
 }, { tableName: 'courses', timestamps: true });
 
 // Model Module
