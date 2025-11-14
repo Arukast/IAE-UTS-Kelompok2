@@ -149,9 +149,13 @@ app.use((err, req, res, next) => {
 
 // --- 8. Jalankan Server ---
 app.listen(PORT, () => {
-  console.log(`API Gateway (Optimized) running on port ${PORT}`);
+  console.log(`API Gateway berjalan di http://localhost:${PORT}`);
   if (process.env.NODE_ENV !== 'production') {
     console.log(`CORS_ORIGIN diizinkan: ${corsOptions.origin}`);
     console.log(`User Service Target: ${services.user}`);
+    console.log(`Course Service Target: ${services.course}`);
+    console.log(`Enrollment Service Target: ${services.enrollment}`);
+    console.log(`Progress Service Target: ${services.progress}`);
+    console.log(`Notification Service Target: ${services.notification}`);
   }
 });

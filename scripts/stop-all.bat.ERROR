@@ -1,0 +1,27 @@
+@REM @echo off
+@REM echo Menghentikan semua layanan (dan menutup jendela mereka)...
+
+@REM :: /FI "WINDOWTITLE eq ..." = Temukan jendela dengan judul itu
+@REM :: /F = Paksa (Force)
+@REM :: /T = Tree (Matikan jendela DAN semua proses anaknya, cth: node.exe)
+
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3000') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :5000') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3001') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3002') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3003') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3004') DO taskkill /F /PID %%G 2> nul
+@REM FOR /F "tokens=5" %%G IN ('netstat -ano -p TCP ^| findstr :3005') DO taskkill /F /PID %%G 2> nul
+
+@REM taskkill /FI "WINDOWTITLE eq API-GW" /F /T
+@REM taskkill /FI "WINDOWTITLE eq Frontend" /F /T
+@REM taskkill /FI "WINDOWTITLE eq CourseSvc" /F /T
+@REM taskkill /FI "WINDOWTITLE eq EnrollmentSvc" /F /T
+@REM taskkill /FI "WINDOWTITLE eq NotificationSvc" /F /T
+@REM taskkill /FI "WINDOWTITLE eq ProgressSvc" /F /T
+@REM taskkill /FI "WINDOWTITLE eq UserSvc" /F /T
+
+@REM echo.
+@REM echo Semua layanan dan jendelanya telah ditutup.
+@REM pause
+
