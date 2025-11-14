@@ -1,0 +1,13 @@
+/* Tampilan untuk hero section */
+.hero-section {
+    background-size: cover;
+    background-position: center center;
+    padding: 100px 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+.hero-section .container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 8px;
+}

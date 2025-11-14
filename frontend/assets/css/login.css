@@ -1,0 +1,42 @@
+/* SOLUSI: 
+  CSS dipindahkan ke file terpisah untuk "Separation of Concerns".
+*/
+body { 
+    font-family: sans-serif; 
+    display: grid; 
+    place-items: center; 
+    min-height: 90vh; 
+    background-color: #f4f4f4; 
+}
+
+/* SOLUSI: 
+  Menggunakan class selector (.login-container) alih-alih 
+  tag selector (div) agar tidak mengganggu elemen <div> lain.
+*/
+.login-container { 
+    background: #fff; 
+    border: 1px solid #ccc; 
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+input { 
+    display: block; 
+    width: 300px; 
+    padding: 8px; 
+    margin-bottom: 10px; 
+}
+
+button { 
+    padding: 10px 15px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+}
+
+#message { 
+    margin-top: 15px; 
+    color: red; 
+}

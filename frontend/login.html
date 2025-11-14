@@ -4,86 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - EduConnect</title>
-    <style>
-        body { font-family: sans-serif; display: grid; place-items: center; min-height: 90vh; background-color: #f4f4f4; }
-        div { background: #fff; border: 1px solid #ccc; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        input { display: block; width: 300px; padding: 8px; margin-bottom: 10px; }
-        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-        #message { margin-top: 15px; color: red; }
-    </style>
-    </head>
+    
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
 <body>
-    <div>
+
+    <main class="login-container">
         <h2>Login EduConnect</h2>
         <form id="loginForm">
             <label for="email">Email:</label>
-            <input type="email" id="email" value="student@example.com" required>
+            <input type="email" id="email" placeholder="contoh: student@example.com" required>
             
             <label for="password">Password:</label>
-            <input type="password" id="password" value="password123" required>
+            <input type="password" id="password" placeholder="Masukkan password" required>
             
             <button type="submit">Login</button>
         </form>
         <div id="message"></div>
-    </div>
+    </main>
 
-    <script>
-        if (localStorage.getItem('token')) {
-            let destination = 'dashboard.html'; // Halaman default (untuk student)
-
-            // Periksa apakah rolenya 'instructor'
-            if (data.user.role === 'instructor') {
-                // Arahkan ke dashboard instruktur
-                destination = 'instructor-dashboard.html';
-            }
-            
-            window.location.href = destination; 
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const messageDiv = document.getElementById('message');
-
-            try {
-                const response = await fetch('http://localhost:3000/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-
-                    // ==========================================================
-                    // == [ PERUBAHAN: 'admin' MENJADI 'instructor' ] ==
-                    // ==========================================================
-                    
-                    let destination = 'dashboard.html'; // Halaman default (untuk student)
-
-                    // Periksa apakah rolenya 'instructor'
-                    if (data.user.role === 'instructor') {
-                        // Arahkan ke dashboard instruktur
-                        destination = 'instructor-dashboard.html';
-                    }
-                    
-                    window.location.href = destination; 
-                    
-                    // ==========================================================
-                    // == [ AKHIR PERUBAHAN ] ==
-                    // ==========================================================
-
-                } else {
-                    messageDiv.textContent = data.error || 'Login gagal';
-                }
-            } catch (error) {
-                messageDiv.textContent = 'Tidak bisa terhubung ke API Gateway.';
-            }
-        });
-    </script>
+    <script src="assets/js/login.js"></script>
 </body>
 </html>

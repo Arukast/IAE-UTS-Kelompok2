@@ -1,83 +1,30 @@
-// URL API Gateway Anda
-const API_URL = 'http://localhost:3000/api';
-
-// Ambil token dan user dari localStorage
-const token = localStorage.getItem('token');
-const user = JSON.parse(localStorage.getItem('user'));
-
-// Elemen UI
+// Elemen UI (spesifik untuk dashboard)
 const courseListEl = document.getElementById('courseList');
 const myEnrollmentListEl = document.getElementById('myEnrollmentList');
 const userInfoEl = document.getElementById('userInfo');
-const messageEl = document.getElementById('message');
 
-// Fungsi untuk menampilkan pesan
-function setMessage(message, type = 'danger') {
-    if (!messageEl) return;
-    messageEl.innerHTML = `<div class="alert alert-${type}" role="alert">${message}</div>`;
-    
-    setTimeout(() => {
-        messageEl.innerHTML = '';
-        messageEl.style.display = 'none';
-    }, 3000);
-    messageEl.style.display = 'block';
-}
+// --- Fungsi Spesifik Dashboard ---
 
-// Fungsi helper untuk fetch API (dengan Token)
-async function fetchAPI(endpoint, options = {}) {
-    const defaultHeaders = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-    };
-    const config = { ...options, headers: { ...defaultHeaders, ...options.headers } };
-
-    if (!token) {
-        window.location.href = 'login.html';
-        return Promise.reject(new Error("No token found"));
-    }
-    
-    const response = await fetch(`${API_URL}${endpoint}`, config);
-
-    if (response.status === 401 || response.status === 403) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        window.location.href = 'login.html';
-    }
-    
-    const contentType = response.headers.get("content-type");
-    if (!response.ok) {
-        const errorData = (contentType && contentType.indexOf("application/json") !== -1) 
-                            ? await response.json() 
-                            : { error: `Error ${response.status}` };
-        throw new Error(errorData.error || `Terjadi kesalahan ${response.status}`);
-    }
-
-    if (contentType && contentType.indexOf("application/json") !== -1) {
-        return response.json();
-    } else {
-        return response.text();
-    }
-}
-
-// Mengambil dan menampilkan semua kursus
+/**
+ * Mengambil dan menampilkan semua kursus.
+ * @returns {Promise<Array>} - Array data kursus.
+ */
 async function loadCourses() {
-    if (!courseListEl) return;
+    if (!courseListEl) return []; // Kembalikan array kosong jika elemen tidak ada
+    
     try {
         const courses = await fetchAPI('/courses'); 
         courseListEl.innerHTML = ''; 
         
         if (courses.length === 0) {
             courseListEl.innerHTML = '<p class="text-muted">Belum ada kursus yang tersedia.</p>';
-            return;
+            return []; // Kembalikan array kosong
         }
 
         courses.forEach(course => {
             const col = document.createElement('div');
             col.className = 'col';
 
-            // ==============================================
-            // PERUBAHAN DI SINI: ?id= menjadi #id=
-            // ==============================================
             col.innerHTML = `
                 <a href="course-detail.html#id=${course.id}" class="card h-100 course-card text-decoration-none text-dark">
                     <img src="${course.thumbnail_url || 'https://via.placeholder.com/300x200.png?text=Kursus'}" class="card-img-top" alt="${course.title}">
@@ -92,14 +39,24 @@ async function loadCourses() {
             `;
             courseListEl.appendChild(col);
         });
+        
+        // SOLUSI: Kembalikan data kursus agar bisa digunakan
+        // oleh fungsi loadMyEnrollments
+        return courses;
+
     } catch (error) {
         courseListEl.innerHTML = `<div class="col"><div class="alert alert-danger">Gagal memuat kursus: ${error.message}</div></div>`;
+        return []; // Kembalikan array kosong jika error
     }
 }
 
-// Mengambil dan menampilkan kursus yang sudah di-enroll
-async function loadMyEnrollments() {
+/**
+ * Mengambil dan menampilkan kursus yang sudah di-enroll.
+ * @param {Array} allCourses - Data kursus dari loadCourses.
+ */
+async function loadMyEnrollments(allCourses) {
     if (!myEnrollmentListEl) return;
+    
     try {
         const enrollments = await fetchAPI('/enrollments/my-enrollments'); 
         
@@ -108,7 +65,8 @@ async function loadMyEnrollments() {
             return;
         }
 
-        const allCourses = await fetchAPI('/courses');
+        // SOLUSI: Gunakan data 'allCourses' yang di-pass, 
+        // tidak perlu fetch API lagi.
         const courseMap = new Map(allCourses.map(course => [course.id, course.title]));
 
         myEnrollmentListEl.innerHTML = '';
@@ -118,9 +76,6 @@ async function loadMyEnrollments() {
             li.className = 'list-group-item';
             const courseTitle = courseMap.get(enroll.course_id) || `Kursus (ID: ${enroll.course_id})`;
             
-            // ==============================================
-            // PERUBAHAN DI SINI: ?id= menjadi #id=
-            // ==============================================
             li.innerHTML = `
                 <a href="course-detail.html#id=${enroll.course_id}" class="text-decoration-none">
                     ${courseTitle}
@@ -134,11 +89,13 @@ async function loadMyEnrollments() {
     }
 }
 
-// --- MAIN LOGIC (Hanya berjalan jika di dashboard.html) ---
+// --- MAIN LOGIC (Hanya berjalan jika di dashboard) ---
 if (userInfoEl) {
+    // Cek login (token dan user diambil dari utils.js)
     if (!token || !user) {
         window.location.href = 'login.html';
     } else {
+        // Setup Info User & Logout (berasal dari utils.js)
         userInfoEl.innerHTML = `Login sebagai: <strong>${user.email}</strong> <button id="logoutBtn" class="btn btn-sm btn-danger ms-2">Logout</button>`;
         
         document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -147,7 +104,20 @@ if (userInfoEl) {
             window.location.href = 'login.html';
         });
 
-        loadCourses();
-        loadMyEnrollments();
+        // SOLUSI: Panggil fungsi secara berurutan
+        // agar data 'courses' bisa di-pass.
+        async function initDashboard() {
+            try {
+                // 1. Muat kursus dan dapatkan datanya
+                const courses = await loadCourses();
+                // 2. Muat enrollment menggunakan data kursus tadi
+                await loadMyEnrollments(courses);
+            } catch (err) {
+                // setMessage juga dari utils.js
+                setMessage(`Gagal memuat dashboard: ${err.message}`, 'danger');
+            }
+        }
+
+        initDashboard();
     }
 }
