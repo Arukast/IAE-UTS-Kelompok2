@@ -1,7 +1,3 @@
-// SOLUSI:
-// Konstanta API_URL, token, dan user sudah didapat dari utils.js
-// Kita hanya perlu mendefinisikan konstanta spesifik halaman ini.
-
 // Ambil ID Kursus dari URL
 const hash = window.location.hash.substring(1);
 const urlParams = new URLSearchParams(hash);
@@ -9,42 +5,31 @@ const courseId = urlParams.get('id');
 
 // --- 1. Logika Pengecekan Halaman Utama ---
 if (!token || !user) {
-    // 1. Jika tidak login, paksa ke login
     window.location.href = 'login.html';
-
 } else if (!courseId) {
-    // 2. Jika login TAPI tidak ada ID kursus, arahkan ke dashboard yang benar
     alert('ID Kursus tidak ditemukan!');
     const dashboardUrl = (user.role === 'instructor') 
         ? 'instructor-dashboard.html' 
         : 'dashboard.html';
     window.location.href = dashboardUrl;
-
 } else {
-    // 3. (Kondisi Ideal) Jika login DAN ada ID kursus:
-    //    Lanjutkan untuk setup halaman dan memuat data
-    
-    // Tentukan URL Dashboard berdasarkan role
+    // Setup halaman
     const dashboardUrl = (user.role === 'instructor') 
         ? 'instructor-dashboard.html' 
         : 'dashboard.html';
-
+    
     // Setup Info User & Tombol Logout
     const userInfoEl = document.getElementById('userInfo');
     if (userInfoEl) {
         userInfoEl.innerHTML = `Login sebagai: <strong>${user.email}</strong> <button id="logoutBtn" class="btn btn-sm btn-danger ms-2">Logout</button>`;
-        
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                window.location.href = 'login.html';
-            });
-        }
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        });
     }
 
-    // Setup Link Navigasi Brand (di header)
+    // Setup Link Navigasi Brand
     const navBrandLink = document.getElementById('nav-brand-link');
     if (navBrandLink) {
         navBrandLink.href = dashboardUrl;
@@ -57,47 +42,24 @@ if (!token || !user) {
     loadPage();
 }
 
-
-// --- 2. Fungsi Helper untuk Fetch API ---
-// SOLUSI: Dihapus. Sekarang menggunakan fetchAPI() dari utils.js
-
-// --- 3. Fungsi Helper untuk Pesan ---
-// SOLUSI: Dihapus. Sekarang menggunakan setMessage() dari utils.js
-
 // --- 4. Fungsi Utama untuk Memuat Halaman ---
 async function loadPage() {
     let courseData;
     try {
-        // 1. Ambil data kursus (ini umum untuk semua role)
-        // (Sekarang memanggil fetchAPI dari utils.js)
         courseData = await fetchAPI(`/courses/${courseId}`);
     } catch (error) {
-        // (Sekarang memanggil setMessage dari utils.js)
         setMessage(`Gagal memuat kursus: ${error.message}`);
         return;
     }
 
-    // 2. Cek Role Pengguna
     if (user && user.role === 'instructor') {
-        
-        // 3a. JIKA INSTRUCTOR:
-        // Langsung tampilkan materi. Instruktur tidak memiliki "progres".
-        // Kita kirim objek progres palsu/kosong.
-        const fakeProgressData = {
-            completed_lessons: []
-        };
+        const fakeProgressData = { completed_lessons: [] };
         showLessonView(courseData, fakeProgressData);
-
     } else {
-        
-        // 3b. JIKA STUDENT:
-        // Gunakan logika try/catch untuk memeriksa progres enrollment.
         try {
             const progressData = await fetchAPI(`/progress/my-progress/${courseId}`);
-            // Jika berhasil (sudah terdaftar), tampilkan materi
             showLessonView(courseData, progressData);
         } catch (error) {
-            // Jika gagal (error 404/403/belum terdaftar), tampilkan halaman pendaftaran
             showEnrollmentView(courseData);
         }
     }
@@ -107,12 +69,8 @@ async function loadPage() {
 // --- 5. Tampilkan View 1 (Pendaftaran) ---
 function showEnrollmentView(course) {
     const enrollmentView = document.getElementById('enrollment-view');
-    if (!enrollmentView) {
-        console.error("Fatal Error: Element #enrollment-view tidak ditemukan.");
-        return;
-    }
+    if (!enrollmentView) return;
 
-    // Kode defensif
     const description = course?.description ?? ''; 
     const thumbnailUrl = course?.thumbnail_url ?? 'https://via.placeholder.com/1200x400.png?text=Kursus';
     
@@ -122,7 +80,7 @@ function showEnrollmentView(course) {
     
     const heroBg = document.getElementById('hero-bg');
     if (heroBg) {
-        heroBg.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${thumbnailUrl})`;
+        heroBg.style.backgroundImage = `url(${thumbnailUrl})`;
     }
 
     enrollmentView.style.display = 'block'; 
@@ -148,55 +106,69 @@ function showEnrollmentView(course) {
 // --- 6. Tampilkan View 2 (Materi) ---
 function showLessonView(course, progress) {
     const lessonView = document.getElementById('lesson-view');
-    if (!lessonView) {
-        console.error("Fatal Error: Element #lesson-view tidak ditemukan.");
-        return;
-    }
+    if (!lessonView) return;
 
-    // ... (Sisa fungsi ini sama persis, tidak perlu diubah) ...
-    // ===================================
-    // == LOGIKA TOMBOL (BAGIAN 1) ==
-    // ===================================
+    // Logika Tombol Instruktur
     if (user.role === 'instructor') {
-        // Tampilkan tombol "Edit Kursus"
         const editCourseLink = document.getElementById('edit-course-link');
         if (editCourseLink) {
             editCourseLink.href = `instructor-edit-course.html#id=${courseId}`;
             editCourseLink.style.display = 'inline-block';
         }
-
-        // Tampilkan tombol "Tambah Modul"
         const createModuleLink = document.getElementById('create-module-link');
         if (createModuleLink) {
             createModuleLink.href = `instructor-create-module.html#id=${courseId}`;
             createModuleLink.style.display = 'inline-block';
         }
     }
-    // ===================================
     
     // Set link "Kembali"
     const dashboardUrl = (user.role === 'instructor') 
         ? 'instructor-dashboard.html' 
         : 'dashboard.html';
-    const backToDashboardLink = document.getElementById('back-to-dashboard-link');
-    if (backToDashboardLink) {
-        backToDashboardLink.href = dashboardUrl;
-    }
+    document.getElementById('back-to-dashboard-link').href = dashboardUrl;
 
-    // Tampilkan data (dengan cek null)
+    // Tampilkan data
     document.getElementById('course-title').textContent = course.title || 'Judul Kursus';
     document.getElementById('course-desc').textContent = course.description || 'Deskripsi tidak tersedia.';
     
     const modulesContainer = document.getElementById('modules-container');
-    
-    // Kode defensif (memastikan 'modules' adalah array)
     const modules = course?.Modules ?? []; 
     const completedLessonIds = new Set(
         (progress?.completed_lessons || []).map(lesson => lesson.lesson_id)
     );
+    
+    //
+    // ==========================================================
+    // == PERUBAHAN 1: Isi Daftar Modul (Quick Links) di Sidebar ==
+    // ==========================================================
+    //
+    const quickLinksContainer = document.getElementById('module-quick-links');
+    if (quickLinksContainer) {
+        if (modules.length > 0) {
+            quickLinksContainer.innerHTML = ''; // Hapus 'Memuat...'
+            modules.forEach(module => {
+                const li = document.createElement('li');
+                li.className = 'list-group-item';
+                // Kita buat link yang mengarah ke ID heading akordion
+                li.innerHTML = `
+                    <a href="#heading-${module.id}" class="text-decoration-none text-dark d-block">
+                        <i class="bi bi-collection me-2 text-primary"></i>
+                        ${module.title || 'Modul Tanpa Judul'}
+                    </a>`;
+                quickLinksContainer.appendChild(li);
+            });
+        } else {
+            quickLinksContainer.innerHTML = '<li class="list-group-item text-muted">Belum ada modul.</li>';
+        }
+    }
+    // ==========================================================
+    // == AKHIR PERUBAHAN 1 ==
+    // ==========================================================
+    
 
     if (modulesContainer) {
-        modulesContainer.innerHTML = ''; // Hapus pemuat
+        modulesContainer.innerHTML = ''; 
         if (modules.length === 0) {
             modulesContainer.innerHTML = '<p class="text-muted">Materi untuk kursus ini belum tersedia.</p>';
         }
@@ -204,7 +176,6 @@ function showLessonView(course, progress) {
         modules.forEach((module, index) => {
             const accordionItem = document.createElement('div');
             accordionItem.className = 'accordion-item';
-
             const lessons = module?.Lessons ?? [];
             const moduleTitle = module?.title ?? 'Modul Tanpa Judul';
 
@@ -212,46 +183,46 @@ function showLessonView(course, progress) {
                 const isCompleted = completedLessonIds.has(lesson.id);
                 const isInstructor = (user.role === 'instructor');
                 
+                let icon;
+                if (isCompleted) icon = 'bi-check-circle-fill text-success';
+                else if (lesson.content_type === 'video') icon = 'bi-play-circle-fill';
+                else if (lesson.content_type === 'quiz') icon = 'bi-patch-question-fill';
+                else icon = 'bi-file-text-fill';
+                
                 let buttonHtml = `
                     <button class="btn btn-sm ${isCompleted ? 'btn-success' : 'btn-outline-primary'} complete-btn" 
-                            data-lesson-id="${lesson.id}" 
-                            ${isCompleted ? 'disabled' : ''}>
+                            data-lesson-id="${lesson.id}" ${isCompleted ? 'disabled' : ''}>
+                        <i class="bi ${isCompleted ? 'bi-check' : 'bi-check-lg'}"></i>
                         ${isCompleted ? 'Selesai' : 'Tandai Selesai'}
-                    </button>
-                `;
+                    </button>`;
                 
-                if (isInstructor) {
-                    buttonHtml = `<span class="badge bg-secondary">Instructor View</span>`;
-                }
+                if (isInstructor) buttonHtml = ``; // Instruktur tidak perlu tombol
 
                 return `
                     <li class="list-group-item d-flex justify-content-between align-items-center ${isCompleted ? 'list-group-item-success' : ''}">
-                        <span>
-                            ${isCompleted ? '✅' : '📄'} ${lesson.title || 'Materi Tanpa Judul'}
-                            <small class="text-muted d-block">(${lesson.content_type || 'N/A'})</small>
+                        <span class="d-flex align-items-center">
+                            <i class="bi ${icon} lesson-icon me-3"></i>
+                            <span class="flex-grow-1">
+                                ${lesson.title || 'Materi Tanpa Judul'}
+                                <small class="text-muted d-block text-capitalize">(${lesson.content_type || 'N/A'})</small>
+                            </span>
                         </span>
                         ${buttonHtml}
                     </li>
                 `;
             }).join('');
 
-            // ==========================================================
-            // == [ PERBAIKAN: Logika link dipindahkan ke DALAM loop ] ==
-            // == Variabel 'module' sekarang valid di sini
-            // ==========================================================
             let instructorLinkHtml = '';
             if (user.role === 'instructor') {
-                // URL harus berisi courseId dan moduleId
                 const createLessonUrl = `instructor-create-lesson.html#courseId=${courseId}&moduleId=${module.id}`;
                 instructorLinkHtml = `
-                    <div class="p-3 border-top">
+                    <div class="p-3 border-top bg-light text-center">
                         <a href="${createLessonUrl}" class="btn btn-sm btn-outline-primary w-100">
-                            + Tambah Materi ke Modul Ini
+                            <i class="bi bi-plus-circle me-2"></i> Tambah Materi ke Modul Ini
                         </a>
                     </div>
                 `;
             }
-            // ==========================================================
 
             accordionItem.innerHTML = `
             <h2 class="accordion-header" id="heading-${module.id}">
@@ -263,12 +234,10 @@ function showLessonView(course, progress) {
             <div id="collapse-${module.id}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
                  aria-labelledby="heading-${module.id}" data-bs-parent="#modules-container">
                 <div class="accordion-body p-0">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush lesson-list">
                         ${lessonsHtml.length > 0 ? lessonsHtml : '<li class="list-group-item text-muted">Belum ada materi di modul ini.</li>'}
                     </ul>
-                    
                     ${instructorLinkHtml}
-
                 </div>
             </div>
         `;
@@ -276,19 +245,34 @@ function showLessonView(course, progress) {
         });
     }
 
-    // Bagian Logika Progress Bar
+    //
+    // ==========================================================
+    // == PERUBAHAN 2: Sembunyikan Progres untuk Instruktur ==
+    // ==========================================================
+    //
+    const modulesColumn = document.getElementById('modules-column');
+    const progressColumn = document.getElementById('progress-column');
     const progressInfoEl = document.getElementById('progress-info');
-    if (progressInfoEl) {
+    
+    if (progressInfoEl && progressColumn && modulesColumn) {
         if (user.role === 'instructor') {
-            progressInfoEl.innerHTML = '<p class="text-muted">Progres tidak dilacak untuk instruktur.</p>';
+            // Sembunyikan kolom progres
+            progressColumn.style.display = 'none';
+            // Lebarkan kolom materi
+            modulesColumn.className = 'col-lg-12';
         } else {
+            // Jika student, pastikan kolom terlihat
+            progressColumn.style.display = 'block';
+            modulesColumn.className = 'col-lg-8';
+            
+            // Dan isi datanya
             const totalLessons = modules.reduce((acc, mod) => acc + (mod?.Lessons?.length ?? 0), 0);
             const completedCount = completedLessonIds.size;
             const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
             progressInfoEl.innerHTML = `
-                <p>${completedCount} dari ${totalLessons} materi selesai.</p>
-                <div class="progress">
+                <p class="mb-2">${completedCount} dari ${totalLessons} materi selesai.</p>
+                <div class="progress" style="height: 20px;">
                     <div class="progress-bar" role="progressbar" style="width: ${progressPercent}%" 
                          aria-valuenow="${progressPercent}" aria-valuemin="0" aria-valuemax="100">
                         ${progressPercent}%
@@ -297,6 +281,9 @@ function showLessonView(course, progress) {
             `;
         }
     }
+    // ==========================================================
+    // == AKHIR PERUBAHAN 2 ==
+    // ==========================================================
 
     // Tampilkan view
     lessonView.style.display = 'block';
@@ -306,10 +293,11 @@ function showLessonView(course, progress) {
 const modulesContainerGlobal = document.getElementById('modules-container');
 if (modulesContainerGlobal) {
     modulesContainerGlobal.addEventListener('click', (e) => {
-        // Hanya student yang bisa klik
-        if (e.target.classList.contains('complete-btn') && user.role !== 'instructor') {
-            const lessonId = parseInt(e.target.getAttribute('data-lesson-id'));
-            markLessonAsComplete(lessonId, e.target);
+        // Cari tombol terdekat, agar klik ikon di dalam tombol tetap berfungsi
+        const button = e.target.closest('.complete-btn');
+        if (button && user.role !== 'instructor') {
+            const lessonId = parseInt(button.getAttribute('data-lesson-id'));
+            markLessonAsComplete(lessonId, button);
         }
     });
 }
@@ -323,7 +311,7 @@ async function markLessonAsComplete(lessonId, button) {
             method: 'POST',
             body: JSON.stringify({
                 lesson_id: lessonId,
-                course_id: courseId // courseId sudah global
+                course_id: courseId
             })
         });
         
@@ -331,8 +319,6 @@ async function markLessonAsComplete(lessonId, button) {
         setTimeout(() => window.location.reload(), 1000);
 
     } catch (error) {
-        // Gunakan alert() di sini karena setMessage() akan cepat hilang
-        // sebelum user membacanya jika halaman di-reload.
         alert(`Gagal menyimpan progres: ${error.message}`);
         button.textContent = 'Tandai Selesai';
         button.disabled = false;

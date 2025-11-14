@@ -19,8 +19,7 @@ if (token && user) {
         window.location.href = destination; 
 
     } catch (e) {
-        // Jika data 'user' di localStorage rusak, utils.js 
-        // mungkin error saat parse. Kita amankan dengan hapus token.
+        // Jika data 'user' di localStorage rusak
         console.error("Gagal memproses redirect otomatis:", e);
         localStorage.removeItem('token');
         localStorage.removeItem('user');
