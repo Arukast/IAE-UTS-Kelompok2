@@ -148,9 +148,8 @@ sequenceDiagram
 5. Kembali ke step 1 dengan folder yang berbeda (Folder yang harus di setup: **api-gateway**, **course-service**, **enrollment-service**, **notification-service**, **progress-service**, dan **user-service**) 
 ## Urutan Start: (Bisa menggunakna **start-all.bat** yang disediakan)
 1. Mulai dengan menjalankan API Gateway di Port 3000
-2. Kemudian jalankan semua microservices di port yang telah ditentukan (3001-3005)
+2. Kemudian jalankan semua microservices di port yang telah ditentukan (3001-3005) (Jika pada terminal service Notification tidak berjalan karena error, coba jalankan perintah berikut `npm install axios` lalu jalankan kembali dengan menggunakan perintah `npm run dev`)
    `npm run dev`
-2.1 Jika pada terminal service Notification tidak berjalan karena error, coba jalankan perintah berikut `npm install axios` lalu jalankan kembali dengan menggunakan perintah `npm run dev`
 5. Terakhir, jalankan frontend client
    `npx serve -l 5000`
 
@@ -163,7 +162,7 @@ sequenceDiagram
 6. Notification Service: Port 3005
 
 ## Variabel ENV yang Perlu Diset:
-1. API-Gateway: (Bisa langsung gunakan `.env.example` yang ada pada folder service dengan cara mengubah nama `.env.example` -> `.env`)
+1. API-Gateway: (Bisa langsung gunakan **.env.example** yang ada pada folder service dengan cara mengubah nama **.env.example** -> **.env**)
    - PORT: 3000
    - JWT_SECRET: rahasia_super_aman_ganti_ini **(atau ganti sesuai keiinginan)**
    - CORS_ORIGIN: http://localhost:5000
