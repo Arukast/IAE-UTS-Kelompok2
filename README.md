@@ -159,9 +159,10 @@ sequenceDiagram
 4. Enrollment Service: Port 3003
 5. Progress Service: Port 3004
 6. Notification Service: Port 3005
+7. Frontend: Port 5000
 
 ## Variabel ENV yang Perlu Diset:
-1. API-Gateway: (Bisa langsung gunakan **.env.example** yang ada pada folder service dengan cara mengubah nama **.env.example** -> **.env**)
+1. API-Gateway: (Bisa langsung gunakan **.env.example** yang ada pada folder dengan cara mengubah nama **.env.example** -> **.env**)
   - PORT: 3000
   - JWT_SECRET: rahasia_super_aman_ganti_ini **(atau ganti sesuai keiinginan)**
   - CORS_ORIGIN: http://localhost:5000
