@@ -151,7 +151,7 @@ sequenceDiagram
 2. Kemudian jalankan semua microservices di port yang telah ditentukan (3001-3005) dengan menggunakan perintah berikut `npm run dev` (Jika pada terminal service Notification tidak berjalan karena error, coba jalankan perintah berikut `npm install axios` lalu jalankan kembali dengan menggunakan perintah `npm run dev`)
 5. Jalankan frontend client `npx serve -l 5000`
 6. Buka link local yang ada di terminal frontend client yaitu: `http://localhost:5000/`
-7. Setelah membuka link local frontend, selanjutnya adalah pilih halaman login sebelum menggunakan webiste
+7. Setelah membuka link local frontend, selanjutnya adalah pilih halaman **login.html** untuk autentikasi sebelum menggunakan webiste
 
 ## Port yang Digunakan:
 1. API Gateway: Port 3000
