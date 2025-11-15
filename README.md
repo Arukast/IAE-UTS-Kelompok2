@@ -191,10 +191,10 @@ sequenceDiagram
    - DATABASE_URL: sqlite:./progress.db
    - NODE_ENV: development
 11. User-Service: (Bisa langsung gunakan **.env.example** yang ada pada folder service dengan cara mengubah nama **.env.example** -> **.env**)
-   - PORT: 3001
-   - JWT_SECRET: rahasia_super_aman_ganti_ini **(atau ganti sesuai keiinginan)**
-   - DATABASE_URL: sqlite:./user.db
-   - NODE_ENV: development
+- PORT: 3001
+- JWT_SECRET: rahasia_super_aman_ganti_ini **(atau ganti sesuai keiinginan)**
+- DATABASE_URL: sqlite:./user.db
+- NODE_ENV: development
 
 
 # Anggota & Peran
