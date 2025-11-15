@@ -147,8 +147,8 @@ sequenceDiagram
 4. Jika berhasil, akan terbuat folder **node_modules** dan file **package-lock.json**
 5. Kembali ke step 1 dengan folder yang berbeda (Folder yang harus di setup: **api-gateway**, **course-service**, **enrollment-service**, **notification-service**, **progress-service**, dan **user-service**) 
 ## Urutan Start: (Bisa menggunakna **start-all.bat** yang disediakan)
-1. Mulai dengan menjalankan API Gateway di Port 3000
-2. Kemudian jalankan semua microservices di port yang telah ditentukan (3001-3005) dengan perintah berikut `npm run dev` (Jika pada terminal service Notification tidak berjalan karena error, coba jalankan perintah berikut `npm install axios` lalu jalankan kembali dengan menggunakan perintah `npm run dev`)
+1. Mulai dengan menjalankan API Gateway di Port 3000 dengan menggunakan perintah berikut `npm run dev`
+2. Kemudian jalankan semua microservices di port yang telah ditentukan (3001-3005) dengan menggunakan perintah berikut `npm run dev` (Jika pada terminal service Notification tidak berjalan karena error, coba jalankan perintah berikut `npm install axios` lalu jalankan kembali dengan menggunakan perintah `npm run dev`)
 5. Terakhir, jalankan frontend client
    `npx serve -l 5000`
 
