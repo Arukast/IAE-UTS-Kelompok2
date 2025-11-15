@@ -1,0 +1,1746 @@
+{
+	"info": {
+		"_postman_id": "571ae761-5f61-491f-8c6b-b1c2cbeca178",
+		"name": "uts IAE",
+		"description": "Postman Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42944866"
+	},
+	"item": [
+		{
+			"name": "1. User Service",
+			"item": [
+				{
+					"name": "POST Register Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"muridbaru\",\n  \"email\": \"murid@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"student\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Mendaftarkan user baru sebagai student."
+					},
+					"response": [
+						{
+							"name": "POST Register Student",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"muridbaru\",\n  \"email\": \"murid@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"student\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/auth/register",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "101"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"65-EHW+jmXqWGrE0Yznu9zPZo2oqqg\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:04:14 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User berhasil dibuat\",\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"muridbaru\",\n        \"email\": \"murid@example.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Register Instructor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"dosenbaru\",\n  \"email\": \"dosen@example.com\",\n  \"password\": \"passwordDosen456\",\n  \"role\": \"instructor\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Mendaftarkan user baru sebagai instructor."
+					},
+					"response": [
+						{
+							"name": "POST Register Instructor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"dosenbaru\",\n  \"email\": \"dosen@example.com\",\n  \"password\": \"passwordDosen456\",\n  \"role\": \"instructor\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/auth/register",
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "101"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"65-1cY1vyz33Z0Gb23YpW/zGRkSTM0\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:06:54 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User berhasil dibuat\",\n    \"user\": {\n        \"id\": 2,\n        \"username\": \"dosenbaru\",\n        \"email\": \"dosen@example.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Login Student",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"if (data.token) {",
+									"    pm.environment.set(\"jwt_token\", data.token);",
+									"    console.log(\"Token Student disimpan.\");",
+									"}",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Token received\", function () {",
+									"    pm.expect(data.token).to.be.a('string');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"murid@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login sebagai student."
+					},
+					"response": [
+						{
+							"name": "POST Login Student",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"murid@example.com\",\n    \"password\": \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/auth/login",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "320"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"140-+OwOrw5AAuKowJJZtg1tIzCtdDA\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:07:48 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Login berhasil\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtdXJpZEBleGFtcGxlLmNvbSIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzYzMjEyMDY4LCJleHAiOjE3NjMyOTg0Njh9.KB6WJ-_gT83y9Nc26WK4H49Hf8f8ibvLKHYjpJOYcg0\",\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"muridbaru\",\n        \"email\": \"murid@example.com\",\n        \"role\": \"student\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Login Instructor",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"if (data.token) {",
+									"    pm.environment.set(\"jwt_token\", data.token);",
+									"    console.log(\"Token Instructor disimpan.\");",
+									"}",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Token received\", function () {",
+									"    pm.expect(data.token).to.be.a('string');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"dosen@example.com\",\n  \"password\": \"passwordDosen456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login sebagai instructor."
+					},
+					"response": [
+						{
+							"name": "POST Login Instructor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"dosen@example.com\",\n  \"password\": \"passwordDosen456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/auth/login",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "327"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"147-twLKO9ME+86mjE8mlX1NiNDt9uo\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:09:08 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Login berhasil\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJkb3NlbkBleGFtcGxlLmNvbSIsInJvbGUiOiJpbnN0cnVjdG9yIiwiaWF0IjoxNzYzMjEyMTQ4LCJleHAiOjE3NjMyOTg1NDh9.lLBCpQDBo5clntKu_ZXupigi2tBmytSZjfUVuHc5WSA\",\n    \"user\": {\n        \"id\": 2,\n        \"username\": \"dosenbaru\",\n        \"email\": \"dosen@example.com\",\n        \"role\": \"instructor\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GET User Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response has user data\", function () {",
+									"    var data = pm.response.json();",
+									"    pm.expect(data).to.have.property('id');",
+									"    pm.expect(data).to.have.property('username');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/users/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1"
+							]
+						},
+						"description": "Mengambil detail user."
+					},
+					"response": []
+				}
+			],
+			"description": "Layanan 1: Mengelola data siswa & pengajar dan autentikasi."
+		},
+		{
+			"name": "2. Course Service",
+			"item": [
+				{
+					"name": "GET All Courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response is an array\", function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						},
+						"description": "Mengambil semua daftar kursus."
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Course (Instructor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Merancang Nuklir\",\n  \"description\": \"Kursus lengkap merancang reaktor nuklir dari nol.\",\n  \"thumbnail_url\": \"https://nypost.com/wp-content/uploads/sites/2/2017/05/gettyimages-1374485.jpg?quality=90&strip=all\",\n  \"category\": \"Sains\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/courses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						},
+						"description": "Membuat kursus baru. Memerlukan token Instruktur."
+					},
+					"response": [
+						{
+							"name": "POST Create Course (Instructor)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Merancang Nuklir\",\n  \"description\": \"Kursus lengkap merancang reaktor nuklir dari nol.\",\n  \"thumbnail_url\": \"https://nypost.com/wp-content/uploads/sites/2/2017/05/gettyimages-1374485.jpg?quality=90&strip=all\",\n  \"category\": \"Sains\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/courses",
+									"path": [
+										"api",
+										"courses"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "288"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"120-rHNIuNcWQYMu3zdOqOxhx6LinO0\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:12:26 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"thumbnail_url\": \"https://via.placeholder.com/300x200.png?text=Kursus\",\n    \"id\": 1,\n    \"title\": \"Merancang Nuklir\",\n    \"description\": \"Kursus lengkap merancang reaktor nuklir dari nol.\",\n    \"instructor_id\": \"2\",\n    \"category\": \"Sains\",\n    \"updatedAt\": \"2025-11-15T13:12:26.473Z\",\n    \"createdAt\": \"2025-11-15T13:12:26.473Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Create Module (Instructor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Bab 1: Pengenalan Fisi Nuklir\",\n  \"module_order\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/courses/1/modules",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"1",
+								"modules"
+							]
+						},
+						"description": "Membuat modul baru untuk kursus."
+					},
+					"response": [
+						{
+							"name": "POST Create Module (Instructor)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"Bab 1: Pengenalan Fisi Nuklir\",\n  \"module_order\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/courses/1/modules",
+									"path": [
+										"api",
+										"courses",
+										"1",
+										"modules"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "81"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"51-o7LW09l0xs3EYiEDWDa3ivqyzKE\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:13:28 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"Bab 1: Pengenalan Fisi Nuklir\",\n    \"module_order\": 1,\n    \"course_id\": \"1\"\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Create Lesson (Instructor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"1.1 Apa itu Uranium?\",\n  \"content_type\": \"text\",\n  \"content_url_or_text\": \"Uranium adalah unsur kimia...\",\n  \"lesson_order\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/modules/1/lessons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"modules",
+								"1",
+								"lessons"
+							]
+						},
+						"description": "Membuat materi baru untuk modul."
+					},
+					"response": [
+						{
+							"name": "POST Create Lesson (Instructor)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"1.1 Apa itu Uranium?\",\n  \"content_type\": \"text\",\n  \"content_url_or_text\": \"Uranium adalah unsur kimia...\",\n  \"lesson_order\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/api/modules/1/lessons",
+									"path": [
+										"api",
+										"modules",
+										"1",
+										"lessons"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "148"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"94-bLBqBxQkhl78crP9adpWEUCELGQ\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:14:14 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"1.1 Apa itu Uranium?\",\n    \"content_type\": \"text\",\n    \"content_url_or_text\": \"Uranium adalah unsur kimia...\",\n    \"lesson_order\": 1,\n    \"module_id\": \"1\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Layanan 2: Mengelola data kursus/mata kuliah."
+		},
+		{
+			"name": "3. Enrollment Service",
+			"item": [
+				{
+					"name": "POST Enroll Course (Student)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/enrollments/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"1"
+							]
+						},
+						"description": "Mendaftarkan student ke kursus."
+					},
+					"response": [
+						{
+							"name": "POST Enroll Course (Student)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "/api/enrollments/1",
+									"path": [
+										"api",
+										"enrollments",
+										"1"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "157"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"9d-DhTQrw0v4HadtHBsxdXFH+Fml88\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:21:00 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Berhasil mendaftar di kursus\",\n    \"enrollment\": {\n        \"enrollment_date\": \"2025-11-15T13:21:00.923Z\",\n        \"status\": \"active\",\n        \"id\": 1,\n        \"user_id\": \"2\",\n        \"course_id\": \"1\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GET My Enrollments (Student)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/enrollments/my-enrollments",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"my-enrollments"
+							]
+						},
+						"description": "Melihat daftar kursus yang sudah di-enroll oleh student."
+					},
+					"response": [
+						{
+							"name": "GET My Enrollments (Student)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/api/enrollments/my-enrollments",
+									"path": [
+										"api",
+										"enrollments",
+										"my-enrollments"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "99"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"63-OE1gKjyLQzu4u7eHKr+ALoJ7i1Y\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:22:04 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"user_id\": 2,\n        \"course_id\": 1,\n        \"enrollment_date\": \"2025-11-15T13:21:00.923Z\",\n        \"status\": \"active\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "GET Course Roster (Instructor)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/enrollments/course-roster/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"enrollments",
+								"course-roster",
+								"1"
+							]
+						},
+						"description": "Melihat daftar siswa yang mendaftar di kursus ini."
+					},
+					"response": [
+						{
+							"name": "GET Course Roster (Instructor)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/api/enrollments/course-roster/1",
+									"path": [
+										"api",
+										"enrollments",
+										"course-roster",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "78"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"4e-eVygO9P7bTRF5ELxXNLSVPREBHM\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:22:22 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"user_id\": 2,\n        \"enrollment_date\": \"2025-11-15T13:21:00.923Z\",\n        \"status\": \"active\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "Layanan 3: Mengelola pendaftaran siswa ke kursus."
+		},
+		{
+			"name": "4. Progress Service",
+			"item": [
+				{
+					"name": "GET My Progress (Student)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/progress/my-progress/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"progress",
+								"my-progress",
+								"1"
+							]
+						},
+						"description": "Melihat progres materi yang selesai di 1 kursus."
+					},
+					"response": [
+						{
+							"name": "GET My Progress (Student)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/progress/my-progress/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"progress",
+										"my-progress",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "54"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"36-Wyb6C0SAeZhDJRsdrYfem9tF3CU\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:24:26 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"enrollment_id\": 1,\n    \"completed_lessons\": [],\n    \"grades\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "POST Complete Lesson (Student)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lesson_id\": 1,\n  \"course_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/progress/lessons/complete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"progress",
+								"lessons",
+								"complete"
+							]
+						},
+						"description": "Menandai 1 materi sebagai selesai."
+					},
+					"response": [
+						{
+							"name": "POST Complete Lesson (Student)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lesson_id\": 1,\n  \"course_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/progress/lessons/complete",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"progress",
+										"lessons",
+										"complete"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "156"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"9c-OqfgyisjHWrbFMytl0GJYC8Pw9Q\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:24:44 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Materi berhasil diselesaikan\",\n    \"progress\": {\n        \"is_completed\": true,\n        \"completed_at\": \"2025-11-15T13:24:44.516Z\",\n        \"id\": 1,\n        \"enrollment_id\": 1,\n        \"lesson_id\": 1\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Layanan 4: Mengelola progres & nilai siswa."
+		},
+		{
+			"name": "5. Notification Service",
+			"item": [
+				{
+					"name": "GET My Notifications (Student)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/my-notifications",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications",
+								"my-notifications"
+							]
+						},
+						"description": "Melihat daftar notifikasi untuk user yang login."
+					},
+					"response": [
+						{
+							"name": "GET My Notifications (Student)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/notifications/my-notifications",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"notifications",
+										"my-notifications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "x-powered-by",
+									"value": "Express"
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "content-length",
+									"value": "214"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"d6-9iBSqDN79plMfYnR282iw+mYRvI\""
+								},
+								{
+									"key": "date",
+									"value": "Sat, 15 Nov 2025 13:26:48 GMT"
+								},
+								{
+									"key": "connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"user_id\": 2,\n        \"message\": \"Anda telah berhasil mendaftar di kursus: Merancang Nuklir\",\n        \"type\": \"ENROLLMENT_SUCCESS\",\n        \"status\": \"sent\",\n        \"createdAt\": \"2025-11-15T13:21:01.226Z\",\n        \"updatedAt\": \"2025-11-15T13:21:01.226Z\"\n    }\n]"
+						}
+					]
+				}
+			],
+			"description": "Layanan 5: Mengelola pengiriman notifikasi."
+		},
+		{
+			"name": "6. Health Checks",
+			"item": [
+				{
+					"name": "GET API Gateway Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status API Gateway."
+					},
+					"response": []
+				},
+				{
+					"name": "GET User Service Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_service_url}}/health",
+							"host": [
+								"{{user_service_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status User Service."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Course Service Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{course_service_url}}/health",
+							"host": [
+								"{{course_service_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status Course Service."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Enrollment Service Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{enrollment_service_url}}/health",
+							"host": [
+								"{{enrollment_service_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status Enrollment Service."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Progress Service Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{progress_service_url}}/health",
+							"host": [
+								"{{progress_service_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status Progress Service."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Notification Service Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{notification_service_url}}/health",
+							"host": [
+								"{{notification_service_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Mengecek status Notification Service."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint ini mengakses service secara langsung untuk memastikan service-nya hidup."
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
